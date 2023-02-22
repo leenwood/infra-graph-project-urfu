@@ -5,7 +5,7 @@
 Скрин находиться в корне проекта
 
 ```git
-git clone https://github.com/leenwood/infra_badoo_backend_app.git
+git clone --recursive https://github.com/leenwood/infra-graph-project-urfu.git
 ```
 ### Открываем терминал
 
@@ -21,22 +21,17 @@ docker-compose up -d
 
 Разворачиваем симфони в докере
 ```bash 
-docker exec -it urfu_moment-php-fpm composer install
+docker exec -it graph-backend-app-php-fpm composer install
 ```
 
 Теперь можно зайти в браузер по ссылке localhost:8000 и увидеть окно привествия от симфони.
 
 Обновляем информацию о базе данных
 ```bash
-docker exec -it urfu_moment-php-fpm php bin/console doctrine:migrations:migrate
-```
-
-Следом нужно создать пользователя для работы и подключения в реакт приложение
-```bash
-docker exec -it urfu_moment-php-fpm php bin/console user:create Nikita 123321 -a true
+docker exec -it graph-backend-app-php-fpm php bin/console doctrine:migrations:migrate
 ```
 
 Генерируем себе ключи 
 ```bash
-docker exec -it urfu_moment-php-fpm php bin/console lexik:jwt:generate-keypair
+docker exec -it graph-backend-app-php-fpm php bin/console lexik:jwt:generate-keypair
 ```
