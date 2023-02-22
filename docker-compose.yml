@@ -1,0 +1,35 @@
+version: '3.0'
+
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./application/backend_app:/symfony
+    container_name: ${PROJECT_NAME}-nginx
+    restart: always
+    depends_on:
+      - php-fpm
+    ports:
+      - "8000:80"
+    
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./application/backend_app:/symfony
+    container_name: ${PROJECT_NAME}-php-fpm
+    depends_on:
+      - postgres
+    expose:
+      - "9000"
+
+  postgres:
+    image: 'postgres:13.1-alpine'
+    container_name: ${PROJECT_NAME}-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DATABASE=${PG_DATABASE}
+      - POSTGRES_HOST=${PG_HOST}
