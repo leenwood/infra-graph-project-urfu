@@ -5,7 +5,7 @@ services:
     build:
       context: ./docker/nginx
     volumes:
-      - ./application/backend_app:/symfony
+      - ./application/backend-app:/symfony
     container_name: ${PROJECT_NAME}-nginx
     restart: always
     depends_on:
@@ -17,7 +17,7 @@ services:
     build:
       context: ./docker/php-fpm
     volumes:
-      - ./application/backend_app:/symfony
+      - ./application/backend-app:/symfony
     container_name: ${PROJECT_NAME}-php-fpm
     depends_on:
       - postgres
