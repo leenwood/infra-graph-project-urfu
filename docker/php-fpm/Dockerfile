@@ -1,6 +1,7 @@
 FROM php:8.1-fpm
 
-RUN apt-get update && apt-get install -y locales
+RUN apt-get update && apt-get install -y locales \
+  && adduser --disabled-password --uid 1000 www
 
 # Locale
 RUN sed -i -e \
