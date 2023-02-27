@@ -5,7 +5,7 @@ services:
     build:
       context: ./docker/nginx
     volumes:
-      - ./application/backend_app:/symfony
+      - ./application/backend-app:/symfony
     container_name: ${PROJECT_NAME}-nginx
     restart: always
     depends_on:
@@ -17,8 +17,14 @@ services:
     build:
       context: ./docker/php-fpm
     volumes:
-      - ./application/backend_app:/symfony
+      - ./application/backend-app:/symfony
     container_name: ${PROJECT_NAME}-php-fpm
+    environment:
+      PG_PORT: ${PG_PORT}
+      PG_HOST: ${PG_HOST}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_USER: ${PG_USER}
+      PG_DATABASE: ${PG_DATABASE}
     depends_on:
       - postgres
     expose:
@@ -28,8 +34,8 @@ services:
     image: 'postgres:13.1-alpine'
     container_name: ${PROJECT_NAME}-postgres
     restart: always
+    ports:
+      - "5432:5432"
     environment:
-      - POSTGRES_USER=${PG_USER}
-      - POSTGRES_PASSWORD=${PG_PASSWORD}
-      - POSTGRES_DATABASE=${PG_DATABASE}
-      - POSTGRES_HOST=${PG_HOST}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}

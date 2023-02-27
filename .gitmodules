@@ -1,3 +1,6 @@
 [submodule "application/backend-app"]
 	path = application/backend-app
 	url = https://github.com/leenwood/backend-app.git
+[submodule "application/frontend-app"]
+	path = application/frontend-app
+	url = https://github.com/leenwood/frontend-app
