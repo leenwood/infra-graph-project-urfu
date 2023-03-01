@@ -26,6 +26,11 @@ docker exec -it graph-backend-app-php-fpm composer install
 
 Теперь можно зайти в браузер по ссылке localhost:8000 и увидеть окно привествия от симфони.
 
+Создаем базу данных
+```bash
+docker exec -it graph-backend-app-php-fpm php bin/console doctrine:database:create
+```
+
 Обновляем информацию о базе данных
 ```bash
 docker exec -it graph-backend-app-php-fpm php bin/console doctrine:migrations:migrate

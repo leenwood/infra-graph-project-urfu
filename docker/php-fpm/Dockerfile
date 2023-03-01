@@ -1,7 +1,6 @@
 FROM php:8.1-fpm
 
-RUN apt-get update && apt-get install -y locales \
-  && adduser --disabled-password --uid 1000 www
+RUN apt-get update && apt-get install -y locales 
 
 # Locale
 RUN sed -i -e \
@@ -18,12 +17,13 @@ RUN apt-get update && apt-get install -y \
     wget \
     zlib1g-dev \
     libmcrypt-dev \
-    libzip-dev
+    libzip-dev 
 
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql zip
 
 # RUN wget https://getcomposer.org/installer -O - -q | php -- --install-dir=/bin --filename=composer --quiet
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+  && adduser --disabled-password --uid 1000 www
 
 WORKDIR /symfony
