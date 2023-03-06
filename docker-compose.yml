@@ -11,7 +11,7 @@ services:
     depends_on:
       - php-fpm
     ports:
-      - "8000:80"
+      - "80:80"
     
   php-fpm:
     build:
