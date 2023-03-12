@@ -1,18 +1,41 @@
 version: '3.0'
 
+networks:
+  main:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
+          gateway: 10.6.0.1
+
 services:
   nginx:
     build:
       context: ./docker/nginx
     volumes:
       - ./application/backend-app:/symfony
+      - ./application/frontend-app:/react
     container_name: ${PROJECT_NAME}-nginx
     restart: always
-    depends_on:
-      - php-fpm
     ports:
       - "80:80"
-    
+    networks:
+      main:
+
+  react:
+    build:
+      context: ./application/frontend-app
+    volumes:
+      - "./application/frontend-app:/react"
+      - "/react/node_modules"
+    container_name: ${PROJECT_NAME}-react
+    depends_on:
+      - php-fpm
+      - nginx
+    networks:
+      main:
+        ipv4_address: 10.6.1.2
+
   php-fpm:
     build:
       context: ./docker/php-fpm
@@ -27,8 +50,11 @@ services:
       PG_DATABASE: ${PG_DATABASE}
     depends_on:
       - postgres
+      - nginx
     expose:
       - "9000"
+    networks:
+      main:
 
   postgres:
     image: 'postgres:13.1-alpine'
@@ -40,3 +66,5 @@ services:
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
+    networks:
+      main:
