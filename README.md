@@ -9,7 +9,7 @@ git clone --recursive https://github.com/leenwood/infra-graph-project-urfu.git
 ```
 ### Открываем терминал
 
-```git
+```bash
 cp .env.dist .env
 ```
 
