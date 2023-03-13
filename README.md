@@ -4,13 +4,20 @@
 
 Скрин находиться в корне проекта
 
-```git
+```bash
 git clone --recursive https://github.com/leenwood/infra-graph-project-urfu.git
 ```
-### Открываем терминал
+
+```bash
+cd infra-graph-project-urfu
+```
 
 ```bash
 cp .env.dist .env
+```
+
+```bash
+rm docker/postgres/data/.gitkeep
 ```
 
 Монтируем образы докера
