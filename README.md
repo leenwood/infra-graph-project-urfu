@@ -9,6 +9,10 @@ git clone --recursive https://github.com/leenwood/infra-graph-project-urfu.git
 ```
 ### Открываем терминал
 
+```bash
+cp .env.dist .env
+```
+
 Монтируем образы докера
 ```bash 
 docker-compose build
