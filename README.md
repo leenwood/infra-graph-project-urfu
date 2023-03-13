@@ -16,10 +16,6 @@ cd infra-graph-project-urfu
 cp .env.dist .env
 ```
 
-```bash
-rm docker/postgres/data/.gitkeep
-```
-
 Монтируем образы докера
 ```bash 
 docker-compose build
