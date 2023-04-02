@@ -48,6 +48,7 @@ services:
       PG_PASSWORD: ${PG_PASSWORD}
       PG_USER: ${PG_USER}
       PG_DATABASE: ${PG_DATABASE}
+      API_KEY: ${API_KEY}
     depends_on:
       - postgres
       - nginx
