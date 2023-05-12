@@ -47,3 +47,11 @@ docker exec -it graph-backend-app-php-fpm php bin/console doctrine:migrations:mi
 ```bash
 docker exec -it graph-backend-app-php-fpm php bin/console lexik:jwt:generate-keypair
 ```
+
+Makefile
+```bash
+cp Makefile.example Makefile //создание Makefile
+make first-build //для первого запуска чтобы создалась база данных
+//либо
+make build //просто чтобы поднять проект
+```
