@@ -1,0 +1,32 @@
+EXEC-BACKEND = docker exec -it graph-backend-app-php-fpm
+EXEC-FRONTEND = docker-compose exec graph-backend-app-react
+
+first-build: up composer-install create-database migrate generate-keys
+	type notify-send &> /dev/null && notify-send "Make" "✨ First build complete! 🚀"
+
+build: up composer-install migrate
+	type notify-send &> /dev/null && notify-send "Make" "✨ Build complete! 🚀"
+
+up:
+	docker-compose up -d
+
+up-force:
+	docker-compose up -d --force-recreate
+
+migrate:
+	${EXEC-BACKEND} bin/console doctrine:migration:migrate --no-interaction
+
+exec-backend:
+	${EXEC-BACKEND} ash
+
+exec-frontend:
+	${EXEC-FRONTEND} ash
+
+composer-install:
+	${EXEC-BACKEND} composer install
+
+create-database:
+	${EXEC-BACKEND} bin/console doctrine:database:create
+
+generate-keys:
+	${EXEC-BACKEND} bin/console lexik:jwt:generate-keypair
